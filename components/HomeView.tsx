@@ -60,55 +60,12 @@ const HomeView: React.FC<HomeViewProps> = ({ changeView }) => {
           <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-[#020202] to-transparent z-10 hidden md:block" />
 
           <div className="w-full h-full relative group">
-            
-            {/* HUD Header Overlay */}
-            <div className="absolute top-0 left-0 w-full h-14 border-b border-white/5 bg-[#020202]/40 px-6 flex items-center justify-between z-30 backdrop-blur-md">
-              <div className="flex items-center space-x-3">
-                <Terminal size={14} className="text-cyan-400" />
-                <span className="text-sm font-mono text-cyan-400 uppercase tracking-[0.3em] font-bold">Verification_Monitor_v4.2</span>
-              </div>
-              <div className="flex space-x-2">
-                <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" />
-                <div className="w-1.5 h-1.5 bg-fuchsia-400 rounded-full" />
-              </div>
-            </div>
-
-            {/* The Monolith Component */}
+            {/* The Monolith Component - Clean version without text overlays */}
             <div className="w-full h-full opacity-70 group-hover:opacity-100 transition-opacity duration-1000">
                <HalftoneMonolith />
             </div>
 
-            {/* Technical HUD Overlays */}
-            <div className="absolute inset-0 pointer-events-none p-12 flex flex-col justify-between z-20 pt-24">
-              <div className="flex justify-between items-start">
-                 <div className="space-y-4">
-                    <div className="px-3 py-1 bg-cyan-500/10 border border-cyan-400/40 text-[13px] font-mono text-cyan-300 font-bold animate-pulse">
-                       INPUT: ATTESTATION_STREAM
-                    </div>
-                    <div className="text-[13px] font-mono text-neutral-400 uppercase tracking-widest">System_Sync: Active</div>
-                 </div>
-                 <div className="text-right">
-                    <div className="text-[13px] font-mono text-neutral-400 uppercase tracking-[0.2em]">Load_Factor</div>
-                    <div className="text-sm font-mono text-neutral-200 font-bold">2.4%_NOMINAL</div>
-                 </div>
-              </div>
-              
-              <div className="flex items-end justify-between">
-                 <div className="flex space-x-8">
-                    <div className="flex flex-col">
-                       <span className="text-[13px] font-mono text-neutral-400 uppercase mb-2 tracking-widest">Entropy_Field</span>
-                       <div className="w-28 h-0.5 bg-neutral-900 overflow-hidden">
-                          <div className="w-full h-full bg-cyan-400/60 animate-[pulse_3s_infinite]"/>
-                       </div>
-                    </div>
-                 </div>
-                 <div className="text-sm font-mono text-fuchsia-400 uppercase tracking-[0.3em] font-bold">
-                    SECURE_CHIP_ACTIVE
-                 </div>
-              </div>
-            </div>
-
-            {/* Scanline/Grid Overlay */}
+            {/* Subtle decorative scanline/grid only, no text */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.08] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
           </div>
         </div>
