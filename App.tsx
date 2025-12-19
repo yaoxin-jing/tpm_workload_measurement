@@ -92,9 +92,8 @@ function App() {
              <span className="text-base font-bold tracking-tight text-white uppercase">AUTOMATA NETWORK</span>
           </div>
           <div className="flex flex-wrap justify-center items-center gap-10 text-sm font-mono text-neutral-400 uppercase tracking-widest font-bold">
-            <a href="#" className="hover:text-cyan-400 transition-colors">Documentation</a>
-            <a href="#" className="hover:text-cyan-400 transition-colors">GitHub</a>
-            <a href="#" className="hover:text-cyan-400 transition-colors">Audit Report</a>
+            <button onClick={() => setView(ViewState.DOCS)} className="hover:text-cyan-400 transition-colors cursor-pointer">Documentation</button>
+            <a href="https://github.com/automata-network/automata-tpm-attestation" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">GitHub</a>
           </div>
         </div>
       </footer>
