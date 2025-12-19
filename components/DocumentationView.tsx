@@ -3,6 +3,13 @@ import CodeBlock from './CodeBlock';
 import { Terminal, Cpu, Layers, Play, Hash, ChevronRight, FileJson } from 'lucide-react';
 
 const DocumentationView: React.FC = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <section className="min-h-screen pt-20 pb-24 px-4 md:px-8 bg-[#020202] text-neutral-200 font-mono relative overflow-hidden">
         {/* Background Effects */}
@@ -40,16 +47,16 @@ const DocumentationView: React.FC = () => {
                         Directory_Tree
                     </div>
                     <ul className="space-y-2 text-sm font-mono font-bold uppercase">
-                        <li className="text-white hover:text-cyan-400 cursor-pointer flex items-center group py-3 px-3 bg-white/10 border border-white/5 transition-all">
+                        <li onClick={() => scrollToSection('setup')} className="text-white hover:text-cyan-400 cursor-pointer flex items-center group py-3 px-3 bg-white/10 border border-white/5 transition-all">
                             <ChevronRight size={16} className="mr-2 text-cyan-400" /> 01_Setup
                         </li>
-                        <li className="text-neutral-400 hover:text-cyan-400 cursor-pointer flex items-center group py-3 px-3 hover:bg-white/5 transition-all">
+                        <li onClick={() => scrollToSection('config')} className="text-neutral-400 hover:text-cyan-400 cursor-pointer flex items-center group py-3 px-3 hover:bg-white/5 transition-all">
                              <ChevronRight size={16} className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity" /> 02_Config
                         </li>
-                        <li className="text-neutral-400 hover:text-cyan-400 cursor-pointer flex items-center group py-3 px-3 hover:bg-white/5 transition-all">
+                        <li onClick={() => scrollToSection('api')} className="text-neutral-400 hover:text-cyan-400 cursor-pointer flex items-center group py-3 px-3 hover:bg-white/5 transition-all">
                              <ChevronRight size={16} className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity" /> 03_API_Ref
                         </li>
-                         <li className="text-neutral-400 hover:text-cyan-400 cursor-pointer flex items-center group py-3 px-3 hover:bg-white/5 transition-all">
+                         <li onClick={() => scrollToSection('integration')} className="text-neutral-400 hover:text-cyan-400 cursor-pointer flex items-center group py-3 px-3 hover:bg-white/5 transition-all">
                              <ChevronRight size={16} className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity" /> 04_Integration
                         </li>
                     </ul>
@@ -67,7 +74,7 @@ const DocumentationView: React.FC = () => {
             <div className="lg:col-span-9 space-y-24">
 
                 {/* 01 Installation */}
-                <section>
+                <section id="setup">
                     <div className="flex items-center space-x-5 mb-10">
                         <span className="text-cyan-400 font-black text-2xl">01</span>
                         <div className="h-px bg-white/10 flex-1 relative">
@@ -115,8 +122,49 @@ TpmAttestation tpm = new TpmAttestation(owner, p256Verifier);`} />
                     </div>
                 </section>
 
+                {/* 02 Configuration */}
+                <section id="config">
+                    <div className="flex items-center space-x-5 mb-10">
+                        <span className="text-cyan-400 font-black text-2xl">02</span>
+                        <div className="h-px bg-white/10 flex-1 relative">
+                            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,1)]"></div>
+                        </div>
+                        <h2 className="text-2xl text-white font-black uppercase tracking-[0.1em]">Configuration</h2>
+                    </div>
+
+                    <div className="space-y-12 pl-4 md:pl-8 border-l border-white/10">
+                        <div className="group">
+                            <h3 className="text-sm text-fuchsia-400 mb-4 flex items-center font-black uppercase tracking-widest">
+                                <span className="mr-3 text-fuchsia-600 font-black">{'>'}</span> Certificate Authority Setup
+                            </h3>
+                            <p className="text-sm text-neutral-300 mb-4 font-mono leading-relaxed">
+                                Register trusted CA certificates for TPM vendor validation.
+                            </p>
+                            <CodeBlock code={`// Add trusted CA certificate
+tpmAttestation.addTrustedCA(caCertDER);
+
+// Check if CA is trusted
+bool isTrusted = tpmAttestation.isTrustedCA(caHash);`} language="solidity" />
+                        </div>
+
+                        <div className="group">
+                            <h3 className="text-sm text-fuchsia-400 mb-4 flex items-center font-black uppercase tracking-widest">
+                                <span className="mr-3 text-fuchsia-600 font-black">{'>'}</span> Access Control
+                            </h3>
+                            <p className="text-sm text-neutral-300 mb-4 font-mono leading-relaxed">
+                                Configure ownership and permissions for contract administration.
+                            </p>
+                            <CodeBlock code={`// Transfer ownership
+tpmAttestation.transferOwnership(newOwner);
+
+// Update P256 verifier address
+tpmAttestation.setP256Verifier(newVerifierAddress);`} language="solidity" />
+                        </div>
+                    </div>
+                </section>
+
                 {/* 03 API Reference */}
-                <section>
+                <section id="api">
                     <div className="flex items-center space-x-5 mb-10">
                          <span className="text-cyan-400 font-black text-2xl">03</span>
                         <div className="h-px bg-white/10 flex-1 relative">
@@ -151,6 +199,58 @@ TpmAttestation tpm = new TpmAttestation(owner, p256Verifier);`} />
     bytes calldata tpmQuote,
     MeasureablePcr[] calldata tpmPcrs
 ) external pure returns (bool success, bytes memory returnData);`} />
+                        </div>
+                    </div>
+                </section>
+
+                {/* 04 Integration */}
+                <section id="integration">
+                    <div className="flex items-center space-x-5 mb-10">
+                        <span className="text-cyan-400 font-black text-2xl">04</span>
+                        <div className="h-px bg-white/10 flex-1 relative">
+                            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,1)]"></div>
+                        </div>
+                        <h2 className="text-2xl text-white font-black uppercase tracking-[0.1em]">Integration Example</h2>
+                    </div>
+
+                    <div className="space-y-12 pl-4 md:pl-8 border-l border-white/10">
+                        <div className="group">
+                            <h3 className="text-sm text-fuchsia-400 mb-4 flex items-center font-black uppercase tracking-widest">
+                                <span className="mr-3 text-fuchsia-600 font-black">{'>'}</span> End-to-End Verification
+                            </h3>
+                            <p className="text-sm text-neutral-300 mb-4 font-mono leading-relaxed">
+                                Complete workflow for verifying TPM attestation in your smart contract.
+                            </p>
+                            <CodeBlock code={`// Import the contract
+import "@automata-network/automata-tpm-attestation/TpmAttestation.sol";
+
+contract MyDApp {
+    TpmAttestation public tpmVerifier;
+
+    constructor(address _tpmVerifier) {
+        tpmVerifier = TpmAttestation(_tpmVerifier);
+    }
+
+    function verifyNode(
+        bytes calldata quote,
+        bytes calldata signature,
+        bytes[] calldata certChain,
+        MeasureablePcr[] calldata pcrs
+    ) external returns (bool) {
+        // Step 1: Verify TPM quote signature
+        (bool quoteValid, bytes memory akPub) =
+            tpmVerifier.verifyTpmQuote(quote, signature, certChain);
+        require(quoteValid, "Invalid TPM quote");
+
+        // Step 2: Verify PCR measurements
+        (bool pcrValid, ) =
+            tpmVerifier.checkPcrMeasurements(quote, pcrs);
+        require(pcrValid, "Invalid PCR state");
+
+        // Node is verified - proceed with trusted operation
+        return true;
+    }
+}`} language="solidity" />
                         </div>
                     </div>
                 </section>
