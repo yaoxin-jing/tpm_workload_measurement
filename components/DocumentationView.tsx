@@ -79,14 +79,14 @@ const DocumentationView: React.FC = () => {
                     <div className="space-y-12 pl-4 md:pl-8 border-l border-white/10">
                         <div className="group">
                             <h3 className="text-sm text-fuchsia-400 mb-4 flex items-center font-black uppercase tracking-widest">
-                                <span className="mr-3 text-fuchsia-600 font-black animate-pulse">></span> Install via Foundry
+                                <span className="mr-3 text-fuchsia-600 font-black animate-pulse">{'>'}</span> Install via Foundry
                             </h3>
                             <CodeBlock code="forge install automata-network/automata-tpm-attestation" language="bash" />
                         </div>
                         
                         <div className="group">
                             <h3 className="text-sm text-fuchsia-400 mb-4 flex items-center font-black uppercase tracking-widest">
-                                <span className="mr-3 text-fuchsia-600 font-black">></span> Configure Remappings
+                                <span className="mr-3 text-fuchsia-600 font-black">{'>'}</span> Configure Remappings
                             </h3>
                             <CodeBlock code={`remappings = [
   "@automata-network/automata-tpm-attestation/=lib/automata-tpm-attestation/src/",
@@ -97,7 +97,7 @@ const DocumentationView: React.FC = () => {
 
                         <div className="group">
                             <h3 className="text-sm text-fuchsia-400 mb-4 flex items-center font-black uppercase tracking-widest">
-                                <span className="mr-3 text-fuchsia-600 font-black">></span> P256 Configuration
+                                <span className="mr-3 text-fuchsia-600 font-black">{'>'}</span> P256 Configuration
                             </h3>
                             <div className="flex items-start space-x-4 mb-6 bg-fuchsia-400/5 p-5 border-l-2 border-fuchsia-500 shadow-[0_0_20px_rgba(217,70,239,0.05)]">
                                 <div className="text-fuchsia-400 mt-1 font-black text-lg">!</div>

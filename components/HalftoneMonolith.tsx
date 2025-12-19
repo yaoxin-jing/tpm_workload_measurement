@@ -10,6 +10,10 @@ const HalftoneMonolith: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    // Set initial canvas size
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+
     let animationFrameId: number;
     let rotationX = 0;
     let rotationY = 0;
@@ -40,12 +44,6 @@ const HalftoneMonolith: React.FC = () => {
     }
 
     const render = () => {
-      // Resize handling
-      if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
-      }
-      
       const width = canvas.width;
       const height = canvas.height;
       
@@ -110,8 +108,19 @@ const HalftoneMonolith: React.FC = () => {
 
     render();
 
+    // Handle window resize with debouncing
+    const handleResize = () => {
+      if (canvas) {
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
     return () => {
       cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 

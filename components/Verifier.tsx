@@ -185,9 +185,9 @@ const Verifier: React.FC = () => {
                   Hardware Integrity Confirmed
                 </h3>
                 <p className="text-green-100 text-sm leading-relaxed mb-6 font-mono whitespace-pre-line">
-                  > Valid Signature (RSASSA-PKCS1-v1_5)
-                  > Certificate Chain Trusted
-                  > PCR Digest Matches Expected State
+                  {'>'} Valid Signature (RSASSA-PKCS1-v1_5){'\n'}
+                  {'>'} Certificate Chain Trusted{'\n'}
+                  {'>'} PCR Digest Matches Expected State
                 </p>
                 
                 <div className="space-y-1">
