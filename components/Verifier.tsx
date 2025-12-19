@@ -31,7 +31,7 @@ const Verifier: React.FC = () => {
     let currentStepIndex = 0;
 
     const interval = setInterval(() => {
-      if (currentStepIndex >= steps.length) {
+      if (currentStepIndex >= STEPS.length) {
         clearInterval(interval);
         setIsVerifying(false);
         setIsComplete(true);
@@ -47,11 +47,13 @@ const Verifier: React.FC = () => {
       setTimeout(() => {
         setSteps(prev => {
            const newSteps = [...prev];
-           newSteps[currentStepIndex].status = 'success';
+           if (currentStepIndex < newSteps.length) {
+             newSteps[currentStepIndex].status = 'success';
+           }
            return newSteps;
         });
         currentStepIndex++;
-      }, 800); 
+      }, 800);
 
     }, 1000);
   };
