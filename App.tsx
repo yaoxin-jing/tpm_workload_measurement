@@ -13,14 +13,14 @@ function App() {
     <div className="min-h-screen bg-[#020202] text-neutral-200 selection:bg-cyan-500 selection:text-black font-sans">
       
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full z-50 border-b border-white/5 bg-[#020202]/90 backdrop-blur-md">
+      <nav className="fixed top-0 left-0 w-full z-50 border-b border-white/10 bg-[#020202]/95 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setView(ViewState.HOME)}>
-            <div className="w-4 h-4 border border-cyan-500 bg-cyan-500/20 transform rotate-45 group-hover:bg-cyan-400 group-hover:shadow-[0_0_10px_rgba(0,243,255,0.8)] transition-all duration-300" />
-            <span className="font-bold tracking-tight text-white group-hover:text-cyan-400 transition-colors">AUTOMATA<span className="text-neutral-600">_TPM</span></span>
+            <div className="w-5 h-5 border border-cyan-500 bg-cyan-500/20 transform rotate-45 group-hover:bg-cyan-400 group-hover:shadow-[0_0_10px_rgba(0,243,255,0.8)] transition-all duration-300" />
+            <span className="font-bold tracking-tight text-white group-hover:text-cyan-400 transition-colors text-lg">AUTOMATA<span className="text-neutral-400">_TPM</span></span>
           </div>
           
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden md:flex items-center space-x-2">
             {[
               { id: ViewState.HOME, label: 'Overview' },
               { id: ViewState.ARCHITECTURE, label: 'Architecture' },
@@ -30,26 +30,26 @@ function App() {
               <button 
                 key={item.id}
                 onClick={() => setView(item.id)}
-                className={`relative px-4 py-2 text-xs font-mono uppercase tracking-wider transition-all duration-300 ${
+                className={`relative px-5 py-2 text-sm font-mono uppercase tracking-widest transition-all duration-300 font-bold ${
                   view === item.id 
                     ? 'text-cyan-400' 
-                    : 'text-neutral-500 hover:text-white'
+                    : 'text-neutral-400 hover:text-white'
                 }`}
               >
                 {item.label}
                 {view === item.id && (
-                  <span className="absolute bottom-0 left-0 w-full h-[1px] bg-cyan-500 shadow-[0_0_8px_rgba(0,243,255,0.8)]" />
+                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-cyan-500 shadow-[0_0_12px_rgba(0,243,255,1)]" />
                 )}
               </button>
             ))}
           </div>
 
-          <div className="flex items-center space-x-6">
-            <a href="https://github.com/automata-network/automata-tpm-attestation" target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-cyan-400 transition-colors">
-              <Github size={20} />
+          <div className="flex items-center space-x-8">
+            <a href="https://github.com/automata-network/automata-tpm-attestation" target="_blank" rel="noreferrer" className="text-neutral-400 hover:text-cyan-400 transition-colors">
+              <Github size={22} />
             </a>
             <button className="md:hidden text-white hover:text-cyan-400">
-              <Menu size={24} />
+              <Menu size={28} />
             </button>
           </div>
         </div>
@@ -63,15 +63,15 @@ function App() {
         {view === ViewState.ARCHITECTURE && <ArchitectureView />}
 
         {view === ViewState.VERIFIER && (
-          <section className="min-h-[85vh] py-20 px-6 flex flex-col items-center relative">
-            <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-cyan-900/10 to-transparent pointer-events-none" />
+          <section className="min-h-[85vh] py-24 px-6 flex flex-col items-center relative">
+            <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-cyan-900/20 to-transparent pointer-events-none" />
             <div className="max-w-2xl text-center mb-16 relative z-10">
-              <div className="inline-flex items-center space-x-2 mb-4 px-3 py-1 border border-cyan-500/20 rounded-full bg-cyan-950/20">
-                <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" />
-                <span className="text-[10px] font-mono text-cyan-300 uppercase tracking-widest">Interactive Demo</span>
+              <div className="inline-flex items-center space-x-3 mb-6 px-4 py-1.5 border border-cyan-500/30 rounded-full bg-cyan-950/40">
+                <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+                <span className="text-sm font-mono text-cyan-300 uppercase tracking-widest font-bold">Interactive Demo</span>
               </div>
-              <h2 className="text-4xl font-light text-white mb-6">Live Attestation Simulator</h2>
-              <p className="text-neutral-400 leading-relaxed">
+              <h2 className="text-5xl font-light text-white mb-8">Live Attestation Simulator</h2>
+              <p className="text-neutral-200 leading-relaxed font-mono text-base max-w-xl mx-auto">
                 Test the verification logic with a sample TPM quote. 
                 In a production environment, this occurs entirely within your smart contract transaction.
               </p>
@@ -85,13 +85,13 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 py-12 mt-20 bg-[#020202]">
+      <footer className="border-t border-white/10 py-16 mt-20 bg-[#020202]">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-          <div className="flex items-center space-x-2 mb-4 md:mb-0">
-             <div className="w-2 h-2 bg-cyan-500 transform rotate-45" />
-             <span className="text-sm font-bold tracking-tight text-white">AUTOMATA NETWORK</span>
+          <div className="flex items-center space-x-3 mb-6 md:mb-0">
+             <div className="w-3 h-3 bg-cyan-500 transform rotate-45" />
+             <span className="text-base font-bold tracking-tight text-white uppercase">AUTOMATA NETWORK</span>
           </div>
-          <div className="flex items-center space-x-8 text-xs font-mono text-neutral-600 uppercase tracking-wider">
+          <div className="flex flex-wrap justify-center items-center gap-10 text-sm font-mono text-neutral-400 uppercase tracking-widest font-bold">
             <a href="#" className="hover:text-cyan-400 transition-colors">Documentation</a>
             <a href="#" className="hover:text-cyan-400 transition-colors">GitHub</a>
             <a href="#" className="hover:text-cyan-400 transition-colors">Audit Report</a>

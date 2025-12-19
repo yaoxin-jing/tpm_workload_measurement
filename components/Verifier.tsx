@@ -28,7 +28,6 @@ const Verifier: React.FC = () => {
     setIsComplete(false);
     setSteps(STEPS.map(s => ({ ...s, status: 'pending' })));
 
-    // Simulate the verification pipeline
     let currentStepIndex = 0;
 
     const interval = setInterval(() => {
@@ -45,7 +44,6 @@ const Verifier: React.FC = () => {
         return step;
       }));
 
-      // Simulate step completion
       setTimeout(() => {
         setSteps(prev => {
            const newSteps = [...prev];
@@ -59,54 +57,52 @@ const Verifier: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto border border-cyan-500/20 bg-[#050505] relative overflow-hidden shadow-[0_0_40px_rgba(0,243,255,0.05)]">
+    <div className="w-full max-w-5xl mx-auto border border-cyan-500/30 bg-[#050505] relative overflow-hidden shadow-[0_0_50px_rgba(0,243,255,0.08)]">
       {/* Decorative top bar */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-900/0 via-cyan-500 to-cyan-900/0 opacity-50" />
-      <div className="absolute top-1 right-1 w-2 h-2 bg-cyan-500/50" />
-      <div className="absolute bottom-1 left-1 w-2 h-2 bg-cyan-500/50" />
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-900/0 via-cyan-500 to-cyan-900/0 opacity-60" />
 
       <div className="grid grid-cols-1 md:grid-cols-12 min-h-[600px]">
         {/* Left Panel: Controls */}
-        <div className="col-span-1 md:col-span-5 border-r border-cyan-500/10 p-8 flex flex-col justify-between bg-neutral-900/20">
+        <div className="col-span-1 md:col-span-5 border-r border-white/10 p-8 flex flex-col justify-between bg-neutral-900/20">
           <div>
-            <div className="flex items-center space-x-3 mb-8 border-b border-cyan-500/10 pb-4">
+            <div className="flex items-center space-x-3 mb-8 border-b border-white/10 pb-4">
               <Terminal className="text-cyan-400" size={20} />
-              <h2 className="text-sm font-mono tracking-widest text-cyan-400 uppercase font-bold">Verification Console</h2>
+              <h2 className="text-base font-mono tracking-widest text-cyan-400 uppercase font-black">Verification Console</h2>
             </div>
 
             <div className="space-y-6">
               <div>
-                <label className="block text-[10px] font-mono text-cyan-600 uppercase tracking-widest mb-2">
+                <label className="block text-sm font-mono text-cyan-400 uppercase tracking-widest mb-3 font-bold">
                   Input Stream / Quote Blob
                 </label>
-                <div className="flex space-x-1 mb-2">
-                  <button className="flex-1 py-1.5 px-3 text-xs font-mono border border-cyan-500/40 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 transition">
+                <div className="flex space-x-1 mb-3">
+                  <button className="flex-1 py-2 px-3 text-sm font-mono border border-cyan-500/50 bg-cyan-500/10 text-cyan-200 hover:bg-cyan-500/20 transition font-bold tracking-tighter uppercase">
                     PASTE_BLOB
                   </button>
-                  <button className="flex-1 py-1.5 px-3 text-xs font-mono border border-white/5 text-neutral-600 hover:text-cyan-400 hover:border-cyan-500/20 transition">
+                  <button className="flex-1 py-2 px-3 text-sm font-mono border border-white/20 text-neutral-400 hover:text-cyan-400 hover:border-cyan-500/40 transition font-bold tracking-tighter uppercase">
                     UPLOAD_FILE
                   </button>
                 </div>
                 <div className="relative group">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/20 to-fuchsia-500/20 rounded opacity-0 group-hover:opacity-100 transition duration-500 blur"></div>
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/30 to-fuchsia-500/30 rounded opacity-0 group-hover:opacity-100 transition duration-500 blur"></div>
                   <textarea
                     value={quoteInput}
                     onChange={(e) => setQuoteInput(e.target.value)}
-                    placeholder="> Waiting for TPM Quote data..."
-                    className="relative w-full h-40 bg-[#020202] border border-cyan-500/20 p-4 text-xs font-mono text-green-400 focus:outline-none focus:border-cyan-500/50 resize-none placeholder:text-neutral-800"
+                    placeholder="> Awaiting attestation payload..."
+                    className="relative w-full h-40 bg-[#020202] border border-white/20 p-4 text-sm font-mono text-green-400 focus:outline-none focus:border-cyan-500/50 resize-none placeholder:text-neutral-600"
                     spellCheck={false}
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[10px] font-mono text-cyan-600 uppercase tracking-widest mb-2">
+                <label className="block text-sm font-mono text-cyan-400 uppercase tracking-widest mb-3 font-bold">
                   Expected PCR Digest (HEX)
                 </label>
                 <input 
                   type="text" 
                   placeholder="0x..." 
-                  className="w-full bg-[#020202] border border-cyan-500/20 p-3 text-xs font-mono text-green-400 focus:outline-none focus:border-cyan-500/50 placeholder:text-neutral-800"
+                  className="w-full bg-[#020202] border border-white/20 p-3 text-sm font-mono text-green-400 focus:outline-none focus:border-cyan-500/50 placeholder:text-neutral-600"
                 />
               </div>
             </div>
@@ -115,10 +111,10 @@ const Verifier: React.FC = () => {
           <button
             onClick={startVerification}
             disabled={isVerifying}
-            className={`w-full py-4 mt-6 flex items-center justify-center space-x-3 text-sm font-bold font-mono tracking-wider uppercase transition-all duration-300 border ${
+            className={`w-full py-4 mt-6 flex items-center justify-center space-x-3 text-sm font-black font-mono tracking-[0.2em] uppercase transition-all duration-300 border ${
               isVerifying 
-                ? 'bg-neutral-900 border-neutral-800 text-neutral-600 cursor-wait' 
-                : 'bg-cyan-500/10 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black shadow-[0_0_20px_rgba(0,243,255,0.15)] hover:shadow-[0_0_30px_rgba(0,243,255,0.4)]'
+                ? 'bg-neutral-900 border-neutral-800 text-neutral-500 cursor-wait' 
+                : 'bg-cyan-500/10 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black shadow-[0_0_20px_rgba(0,243,255,0.15)] active:scale-95'
             }`}
           >
             {isVerifying ? (
@@ -140,67 +136,67 @@ const Verifier: React.FC = () => {
           <div className="absolute inset-0 halftone-grid opacity-30 pointer-events-none" />
           
           <div className="relative z-10 h-full flex flex-col">
-            <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-8">
-              <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">Process Output</span>
+            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-8">
+              <span className="text-sm font-mono text-neutral-400 uppercase tracking-widest font-bold">Process Output</span>
               <div className="flex items-center space-x-3">
-                <div className={`w-1.5 h-1.5 rounded-none ${isVerifying ? 'bg-fuchsia-500 animate-ping' : isComplete ? 'bg-green-500' : 'bg-neutral-800'}`} />
-                <span className={`text-[10px] font-mono font-bold ${isVerifying ? 'text-fuchsia-400' : isComplete ? 'text-green-400' : 'text-neutral-600'}`}>
+                <div className={`w-1.5 h-1.5 rounded-none ${isVerifying ? 'bg-fuchsia-500 animate-pulse' : isComplete ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,1)]' : 'bg-neutral-800'}`} />
+                <span className={`text-[13px] font-mono font-black tracking-widest ${isVerifying ? 'text-fuchsia-400' : isComplete ? 'text-green-400' : 'text-neutral-500'}`}>
                   {isVerifying ? 'SYSTEM_BUSY' : isComplete ? 'VERIFICATION_SUCCESS' : 'SYSTEM_IDLE'}
                 </span>
               </div>
             </div>
 
             {/* Pipeline Visualizer */}
-            <div className="space-y-5 mb-8">
+            <div className="space-y-6 mb-8">
               {steps.map((step) => (
-                <div key={step.id} className="flex items-center space-x-4 group">
-                  <div className={`w-6 h-6 flex items-center justify-center border transition-all duration-300 ${
-                    step.status === 'success' ? 'border-green-500 bg-green-500/10 text-green-400 shadow-[0_0_10px_rgba(34,197,94,0.2)]' :
-                    step.status === 'processing' ? 'border-fuchsia-500 bg-fuchsia-500/10 text-fuchsia-400 animate-pulse' :
-                    'border-neutral-800 text-neutral-800 bg-neutral-900/50'
+                <div key={step.id} className="flex items-center space-x-5 group">
+                  <div className={`w-7 h-7 flex items-center justify-center border transition-all duration-300 ${
+                    step.status === 'success' ? 'border-green-500 bg-green-500/10 text-green-400 shadow-[0_0_10px_rgba(34,197,94,0.3)]' :
+                    step.status === 'processing' ? 'border-fuchsia-400 bg-fuchsia-500/10 text-fuchsia-400' :
+                    'border-neutral-700 text-neutral-600 bg-neutral-900/50'
                   }`}>
-                    {step.status === 'success' && <CheckCircle2 size={14} />}
-                    {step.status === 'processing' && <Loader2 size={14} className="animate-spin" />}
-                    {step.status === 'pending' && <div className="w-1 h-1 bg-current" />}
+                    {step.status === 'success' && <CheckCircle2 size={16} />}
+                    {step.status === 'processing' && <Loader2 size={16} className="animate-spin" />}
+                    {step.status === 'pending' && <div className="w-1.5 h-1.5 bg-current" />}
                   </div>
-                  <span className={`text-xs font-mono uppercase tracking-wide transition-colors ${
+                  <span className={`text-sm font-mono uppercase tracking-widest transition-colors font-bold ${
                     step.status === 'success' ? 'text-white' : 
                     step.status === 'processing' ? 'text-fuchsia-200' : 
-                    'text-neutral-600'
+                    'text-neutral-400'
                   }`}>
                     {step.label}
                   </span>
                   {step.status === 'processing' && (
-                     <span className="text-[10px] font-mono text-fuchsia-500 animate-pulse ml-auto">EXECUTING</span>
+                     <span className="text-[13px] font-mono text-fuchsia-400 font-black animate-pulse ml-auto">EXECUTING</span>
                   )}
                   {step.status === 'success' && (
-                     <span className="text-[10px] font-mono text-green-500 ml-auto">OK</span>
+                     <span className="text-[13px] font-mono text-green-400 font-black ml-auto">OK</span>
                   )}
                 </div>
               ))}
             </div>
 
-            {/* Final Results (Only show if complete) */}
+            {/* Final Results */}
             {isComplete && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 border border-green-500/30 bg-green-950/10 p-6 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-1 h-full bg-green-500" />
-                <h3 className="text-green-400 text-xs font-mono font-bold uppercase tracking-widest mb-4 flex items-center">
-                  <ShieldCheck size={16} className="mr-3" /> 
+              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 border border-green-500/40 bg-green-950/20 p-6 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-1.5 h-full bg-green-500 shadow-[2px_0_10px_rgba(34,197,94,0.4)]" />
+                <h3 className="text-green-400 text-sm font-mono font-black uppercase tracking-[0.2em] mb-4 flex items-center">
+                  <ShieldCheck size={18} className="mr-3" /> 
                   Hardware Integrity Confirmed
                 </h3>
-                <p className="text-green-200/70 text-xs leading-relaxed mb-6 font-mono">
-                  > Valid Signature (RSASSA-PKCS1-v1_5)<br/>
-                  > Certificate Chain Trusted<br/>
+                <p className="text-green-100 text-sm leading-relaxed mb-6 font-mono whitespace-pre-line">
+                  > Valid Signature (RSASSA-PKCS1-v1_5)
+                  > Certificate Chain Trusted
                   > PCR Digest Matches Expected State
                 </p>
                 
                 <div className="space-y-1">
-                  <span className="text-[10px] font-mono text-neutral-500 uppercase mb-3 block border-b border-green-500/20 pb-1 w-full">Measured State (PCRs)</span>
+                  <span className="text-[13px] font-mono text-neutral-300 uppercase mb-3 block border-b border-green-500/20 pb-1 w-full font-bold">Measured State (PCRs)</span>
                   {SAMPLE_PCRS.map((pcr) => (
-                    <div key={pcr.index} className="flex space-x-4 text-[10px] font-mono py-1 hover:bg-green-500/5 transition">
-                      <span className="text-green-600 w-8">[{pcr.index}]</span>
-                      <span className="text-green-300 truncate flex-1">{pcr.value}</span>
-                      <span className="text-neutral-500 hidden sm:block">{pcr.description}</span>
+                    <div key={pcr.index} className="flex space-x-4 text-sm font-mono py-1.5 hover:bg-green-500/5 transition">
+                      <span className="text-green-400 w-10 font-bold">[{pcr.index}]</span>
+                      <span className="text-green-100 truncate flex-1 font-medium">{pcr.value}</span>
+                      <span className="text-neutral-400 hidden sm:block italic">{pcr.description}</span>
                     </div>
                   ))}
                 </div>
@@ -208,11 +204,11 @@ const Verifier: React.FC = () => {
             )}
 
             {!isComplete && !isVerifying && (
-              <div className="flex-1 flex flex-col items-center justify-center text-neutral-800 space-y-4">
-                 <div className="w-16 h-16 border border-dashed border-neutral-800 flex items-center justify-center rounded-full">
-                    <Server size={24} strokeWidth={1.5} />
+              <div className="flex-1 flex flex-col items-center justify-center text-neutral-700 space-y-6">
+                 <div className="w-20 h-20 border border-dashed border-neutral-700 flex items-center justify-center rounded-full">
+                    <Server size={32} strokeWidth={1.5} />
                  </div>
-                <p className="text-[10px] font-mono uppercase tracking-widest text-neutral-600">Awaiting input stream...</p>
+                <p className="text-sm font-mono uppercase tracking-[0.3em] text-neutral-500 font-bold">Awaiting input stream...</p>
               </div>
             )}
           </div>

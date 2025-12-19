@@ -17,28 +17,29 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ code, language = 'solidity', labe
   };
 
   return (
-    <div className="border border-cyan-500/20 bg-[#050505] overflow-hidden my-6 group relative shadow-[0_0_15px_rgba(0,243,255,0.05)]">
+    <div className="border border-white/10 bg-[#050505] overflow-hidden my-6 group relative shadow-[0_0_20px_rgba(0,0,0,0.5)]">
       {label && (
-        <div className="flex items-center justify-between px-4 py-2 border-b border-cyan-500/20 bg-cyan-950/10">
-          <div className="flex items-center space-x-2">
-            <Terminal size={12} className="text-cyan-500" />
-            <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest font-bold">{label}</span>
+        <div className="flex items-center justify-between px-5 py-3 border-b border-white/10 bg-white/5">
+          <div className="flex items-center space-x-3">
+            <Terminal size={14} className="text-cyan-400" />
+            <span className="text-sm font-mono text-cyan-400 uppercase tracking-widest font-black">{label}</span>
           </div>
-          <span className="text-[10px] font-mono text-neutral-500">{language}</span>
+          <span className="text-[13px] font-mono text-neutral-400 font-bold uppercase">{language}</span>
         </div>
       )}
-      <div className="relative p-4">
+      <div className="relative p-6">
         <button 
           onClick={handleCopy}
-          className="absolute top-4 right-4 p-2 rounded-none border border-cyan-500/20 hover:border-cyan-500/50 hover:bg-cyan-500/10 text-cyan-500 transition-all opacity-0 group-hover:opacity-100 z-10"
+          className="absolute top-4 right-4 p-2 rounded-none border border-white/20 bg-black/50 hover:border-cyan-500/50 hover:text-cyan-400 text-neutral-400 transition-all opacity-0 group-hover:opacity-100 z-10"
+          title="Copy Code"
         >
-          {copied ? <Check size={14} /> : <Copy size={14} />}
+          {copied ? <Check size={16} /> : <Copy size={16} />}
         </button>
-        <pre className="font-mono text-xs sm:text-sm text-neutral-300 overflow-x-auto leading-relaxed">
-          <code className="selection:bg-fuchsia-500/30 selection:text-white">
+        <pre className="font-mono text-sm text-white overflow-x-auto leading-relaxed scrollbar-thin">
+          <code className="selection:bg-cyan-500/40 selection:text-white">
             {code.trim().split('\n').map((line, i) => (
               <div key={i} className="table-row">
-                <span className="table-cell select-none text-neutral-700 text-right pr-4 text-xs">{i + 1}</span>
+                <span className="table-cell select-none text-neutral-400 text-right pr-6 text-[13px] opacity-70 font-bold">{i + 1}</span>
                 <span className="table-cell">{line}</span>
               </div>
             ))}
@@ -46,7 +47,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ code, language = 'solidity', labe
         </pre>
       </div>
       {/* Decorative corner */}
-      <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-cyan-500 opacity-50" />
+      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-500/40 opacity-50" />
     </div>
   );
 };

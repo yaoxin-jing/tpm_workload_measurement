@@ -16,21 +16,22 @@ const HalftoneMonolith: React.FC = () => {
 
     // Configuration
     const gridSize = 40; 
-    const spacing = 16;
-    const objectSize = 240;
+    const spacing = 18;
+    const objectWidth = 200;
+    const objectHeight = 500; // Taller monolith
+    const objectDepth = 100;
     
     // Generate points for a "Monolith" (Tall Cuboid)
     const points: { x: number; y: number; z: number }[] = [];
     
-    // Create a dense volume of points, but only on surface to save perf and look cleaner
-    for (let x = -objectSize / 2; x <= objectSize / 2; x += spacing) {
-      for (let y = -objectSize; y <= objectSize; y += spacing) {
-        for (let z = -objectSize / 4; z <= objectSize / 4; z += spacing) {
-          // Only add points on the "skin" or sparsely inside
+    // Create points only on the surface to look cleaner
+    for (let x = -objectWidth / 2; x <= objectWidth / 2; x += spacing) {
+      for (let y = -objectHeight / 2; y <= objectHeight / 2; y += spacing) {
+        for (let z = -objectDepth / 2; z <= objectDepth / 2; z += spacing) {
           if (
-            Math.abs(x) >= objectSize / 2 - spacing ||
-            Math.abs(y) >= objectSize - spacing ||
-            Math.abs(z) >= objectSize / 4 - spacing
+            Math.abs(x) >= objectWidth / 2 - spacing ||
+            Math.abs(y) >= objectHeight / 2 - spacing ||
+            Math.abs(z) >= objectDepth / 2 - spacing
           ) {
             points.push({ x, y, z });
           }
@@ -48,15 +49,16 @@ const HalftoneMonolith: React.FC = () => {
       const width = canvas.width;
       const height = canvas.height;
       
-      ctx.fillStyle = '#020202'; // Deep black background
+      // Clear with background color matching HomeView's right panel
+      ctx.fillStyle = '#050505';
       ctx.fillRect(0, 0, width, height);
 
       const cx = width / 2;
       const cy = height / 2;
 
-      // Rotate
-      rotationY += 0.005; 
-      rotationX = Math.sin(Date.now() * 0.001) * 0.2;
+      // Gentle rotation
+      rotationY += 0.003; 
+      rotationX = Math.sin(Date.now() * 0.0005) * 0.15;
 
       const projectedPoints = points.map(p => {
         // Rotation Y
@@ -68,24 +70,33 @@ const HalftoneMonolith: React.FC = () => {
         const z2 = z1 * Math.cos(rotationX) + p.y * Math.sin(rotationX);
 
         // Perspective projection
-        const scale = 800 / (800 + z2);
+        const focalLength = 1000;
+        const scale = focalLength / (focalLength + z2);
         const x2D = x1 * scale + cx;
         const y2D = y2 * scale + cy;
 
         return { x: x2D, y: y2D, scale, z: z2 };
       });
 
-      // Draw
-      
+      // Sort points by depth (painters algorithm) for transparency consistency
+      projectedPoints.sort((a, b) => b.z - a.z);
+
       projectedPoints.forEach(p => {
-        const size = Math.max(0.5, 3 * p.scale * p.scale); 
+        const size = Math.max(0.2, 2.5 * p.scale); 
         
-        // Only draw if within bounds
         if (p.x > 0 && p.x < width && p.y > 0 && p.y < height) {
-           ctx.globalAlpha = Math.min(1, Math.max(0.2, p.scale)); // Fade distant points
+           const opacity = Math.min(1, Math.max(0.1, p.scale * 0.8));
            
-           // Neon Cyan Color for the Hacker Aesthetic
-           ctx.fillStyle = '#00f3ff';
+           // Subtle gradient for dots based on height
+           const heightRatio = (p.y - cy + objectHeight / 2) / objectHeight;
+           ctx.globalAlpha = opacity;
+           
+           // Mixed color palette: Cyan to Fuchsia
+           if (heightRatio > 0.7) {
+             ctx.fillStyle = '#d946ef'; // Fuchsia bottom
+           } else {
+             ctx.fillStyle = '#00f3ff'; // Cyan top/middle
+           }
            
            ctx.beginPath();
            ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
@@ -107,7 +118,7 @@ const HalftoneMonolith: React.FC = () => {
   return (
     <canvas 
       ref={canvasRef} 
-      className="w-full h-[600px] md:h-[800px] pointer-events-none"
+      className="w-full h-full pointer-events-none"
     />
   );
 };
