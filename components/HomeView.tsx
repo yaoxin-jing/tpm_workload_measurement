@@ -12,40 +12,57 @@ const HomeView: React.FC<HomeViewProps> = ({ changeView }) => {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex flex-col justify-center items-center overflow-hidden border-b border-white/5 bg-[#020202]">
-        <div className="absolute inset-0 w-full h-full flex items-center justify-center opacity-80">
-          <HalftoneMonolith />
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden border-b border-white/5 bg-[#020202]">
+        {/* Background Visual Element - Computational Monolith on Right */}
+        <div className="absolute inset-y-0 right-0 w-full md:w-1/2 lg:w-[45%] z-0 pointer-events-none select-none">
+          <div className="relative w-full h-full flex items-center justify-center">
+            {/* The Monolith */}
+            <div className="w-full h-full opacity-40 md:opacity-100">
+               <HalftoneMonolith />
+            </div>
+            {/* Blending Gradient - Fades from solid background on left to transparent on right */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#020202] via-[#020202]/80 md:via-[#020202]/40 to-transparent z-10" />
+            {/* Vertical Splitter Light Edge (Optional aesthetic) */}
+            <div className="absolute left-0 top-1/4 bottom-1/4 w-[1px] bg-gradient-to-b from-transparent via-cyan-500/10 to-transparent hidden md:block" />
+          </div>
         </div>
         
-        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center mt-20 md:mt-0">
-          <div className="inline-block px-4 py-1 mb-8 border border-cyan-500/30 rounded-full bg-cyan-950/10 backdrop-blur-md shadow-[0_0_20px_rgba(0,243,255,0.1)]">
-            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-cyan-400">
-              Automata Network Research
-            </span>
-          </div>
-          <h1 className="text-5xl md:text-8xl font-medium tracking-tighter text-white mb-8 leading-[0.9]">
-            BRINGING TPM<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500">ATTESTATION ON-CHAIN</span>
-          </h1>
-          <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto font-normal leading-relaxed mb-12">
-            Verifying Hardware Integrity in Smart Contracts. <br />
-            Establishing <span className="text-white border-b border-cyan-500/50 pb-0.5 shadow-[0_0_10px_rgba(255,255,255,0.1)]">hardware-rooted trust</span> as a native capability of decentralized systems.
-          </p>
-          
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-            <button 
-              onClick={() => changeView(ViewState.VERIFIER)}
-              className="group h-14 px-8 bg-cyan-500 text-black font-bold font-mono text-sm tracking-widest uppercase hover:bg-cyan-400 transition-all duration-300 shadow-[0_0_20px_rgba(0,243,255,0.3)] hover:shadow-[0_0_40px_rgba(0,243,255,0.6)] w-full md:w-auto flex items-center space-x-2"
-            >
-              <span>Launch Verifier</span>
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button 
-              onClick={() => changeView(ViewState.ARCHITECTURE)}
-              className="h-14 px-8 bg-transparent border border-white/20 text-white font-mono font-bold text-sm tracking-widest uppercase hover:border-cyan-400 hover:text-cyan-400 hover:bg-cyan-950/10 transition-colors w-full md:w-auto"
-            >
-              Explore Architecture
-            </button>
+        {/* Text Content - Left Aligned */}
+        <div className="relative z-20 max-w-7xl mx-auto px-6 md:px-12 w-full">
+          <div className="max-w-2xl">
+            <div className="inline-block px-4 py-1 mb-8 border border-cyan-500/30 rounded-full bg-cyan-950/10 backdrop-blur-md shadow-[0_0_20px_rgba(0,243,255,0.05)]">
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-cyan-400 font-bold">
+                Automata Network Research
+              </span>
+            </div>
+            
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tighter text-white mb-8 leading-[0.95] md:leading-[0.9]">
+              BRINGING TPM<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500">
+                ATTESTATION<br />ON-CHAIN
+              </span>
+            </h1>
+            
+            <p className="text-lg md:text-xl text-neutral-300 font-normal leading-relaxed mb-12 max-w-xl">
+              Verifying Hardware Integrity in Smart Contracts. <br className="hidden md:block" />
+              Establishing <span className="text-white border-b border-cyan-500/50 pb-0.5 shadow-[0_0_10px_rgba(0,243,255,0.1)]">hardware-rooted trust</span> as a native capability of decentralized systems.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-center gap-6">
+              <button 
+                onClick={() => changeView(ViewState.VERIFIER)}
+                className="group h-14 px-10 bg-cyan-500 text-black font-bold font-mono text-xs tracking-widest uppercase hover:bg-cyan-400 transition-all duration-300 shadow-[0_0_20px_rgba(0,243,255,0.2)] hover:shadow-[0_0_40px_rgba(0,243,255,0.5)] w-full sm:w-auto flex items-center justify-center space-x-3"
+              >
+                <span>Launch Verifier</span>
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+              <button 
+                onClick={() => changeView(ViewState.ARCHITECTURE)}
+                className="h-14 px-10 bg-transparent border border-white/10 text-neutral-400 font-mono font-bold text-xs tracking-widest uppercase hover:border-cyan-500/50 hover:text-cyan-400 hover:bg-cyan-950/5 transition-all w-full sm:w-auto"
+              >
+                Architecture
+              </button>
+            </div>
           </div>
         </div>
       </section>
