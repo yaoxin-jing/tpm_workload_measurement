@@ -1,0 +1,5 @@
+{
+  "name": "Automata TPM On-Chain Verifier",
+  "description": "A high-fidelity editorial interface for hardware-rooted on-chain attestation verification using Automata Network technology.",
+  "requestFramePermissions": []
+}
